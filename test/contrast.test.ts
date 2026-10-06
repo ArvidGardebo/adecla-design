@@ -28,7 +28,7 @@ const text: Pair[] = [
   ...on(['ink', 'ink-muted', 'primary', 'link', 'positive', 'negative', 'warning'], surfaces),
   ...on(['ink', 'ink-muted', 'primary'], ['primary-soft']),
   ...on(['ink', 'ink-muted'], ['surface-sunken']),
-  ...on(['on-primary'], ['primary', 'primary-hover', 'primary-pressed', 'alert']),
+  ...on(['on-primary'], ['primary', 'primary-hover', 'primary-pressed', 'alert', 'positive', 'negative', 'warning', 'ink']),
   ['positive', 'positive-soft'],
   ['negative', 'negative-soft'],
   ['warning', 'warning-soft'],

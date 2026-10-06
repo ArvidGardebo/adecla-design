@@ -69,6 +69,8 @@ function createAdeclaTheme() {
           success: { main: color['positive'], soft: color['positive-soft'], contrastText: color['on-primary'] },
           error: { main: color['negative'], soft: color['negative-soft'], contrastText: color['on-primary'] },
           warning: { main: color['warning'], soft: color['warning-soft'], contrastText: color['on-primary'] },
+          /* Info har ingen egen färg: primary är systemets neutrala markering. */
+          info: { main: color['primary'], soft: color['primary-soft'], contrastText: color['on-primary'] },
           alert: { main: color['alert'], contrastText: color['on-primary'] },
           background: {
             default: color['surface-page'],
@@ -196,7 +198,7 @@ function createAdeclaTheme() {
             backgroundColor: v(theme).palette.background.sunken,
             color: v(theme).palette.text.secondary,
             variants: [
-              ...(['primary', 'success', 'error', 'warning'] as const).map((c) => ({
+              ...(['primary', 'info', 'success', 'error', 'warning'] as const).map((c) => ({
                 props: { color: c },
                 style: { backgroundColor: v(theme).palette[c].soft, color: v(theme).palette[c].main },
               })),
@@ -209,6 +211,11 @@ function createAdeclaTheme() {
                   backgroundColor: v(theme).palette.alert.main,
                   color: v(theme).palette.alert.contrastText,
                 },
+              },
+              /* Outlined: kant i textens färg, ingen fyllning. Sist, så att den vinner över färgen. */
+              {
+                props: { variant: 'outlined' },
+                style: { backgroundColor: 'transparent', border: '1px solid currentColor' },
               },
             ],
           }),
@@ -321,6 +328,131 @@ function createAdeclaTheme() {
             transform: 'none !important',
             '&::before': { content: '"⇅"' },
           },
+        },
+      },
+
+      /*
+       * Fält, meny, dialog, notis och tooltip finns inte i referensen. Stilarna följer
+       * dess README: fält har radius-md och line-control-kant, det som svävar har shadow-pop.
+       */
+      MuiTextField: { defaultProps: { size: 'small' } },
+      MuiFormControl: { defaultProps: { size: 'small' } },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            ...typeStyle('body'),
+            fontVariantNumeric: 'normal',
+            color: v(theme).palette.text.secondary,
+            '&.Mui-focused': { color: v(theme).palette.primary.main },
+            '&.Mui-error': { color: v(theme).palette.error.main },
+          }),
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            ...typeStyle('body'),
+            borderRadius: theme.shape.radius.md,
+            backgroundColor: v(theme).palette.background.paper,
+            '& .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.lineControl },
+            '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.text.secondary },
+            '&.Mui-focused': focusRing,
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.primary.main, borderWidth: 1 },
+            '&.Mui-error .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.error.main },
+            '&.Mui-error.Mui-focused': { outlineColor: v(theme).palette.error.main },
+            '&.Mui-disabled': { backgroundColor: v(theme).palette.background.sunken },
+            '&.Mui-disabled .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.divider },
+          }),
+        },
+      },
+      MuiFormHelperText: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            ...typeStyle('small'),
+            fontVariantNumeric: 'normal',
+            margin: `${space['space-1']} 0 0`,
+            color: v(theme).palette.text.secondary,
+            '&.Mui-error': { color: v(theme).palette.error.main },
+          }),
+        },
+      },
+
+      /* Menyer (Select, Menu): vit panel, hårlinje, shadow-pop via elevation 8. */
+      MuiMenu: {
+        styleOverrides: {
+          paper: ({ theme }) => ({ marginTop: space['space-1'], border: `1px solid ${v(theme).palette.divider}`, borderRadius: theme.shape.radius.md }),
+          list: { padding: `${space['space-1']} 0` },
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            ...typeStyle('body'),
+            fontVariantNumeric: 'normal',
+            minHeight: 36,
+            padding: `0 ${space['space-3']}`,
+            '&:hover, &.Mui-focusVisible': { backgroundColor: v(theme).palette.background.hover },
+            '&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+          }),
+        },
+      },
+
+      /* Dialog: kortets hörn, shadow-pop via elevation 24. */
+      MuiDialog: {
+        styleOverrides: { paper: ({ theme }) => ({ borderRadius: theme.shape.radius.lg }) },
+      },
+      MuiDialogTitle: {
+        styleOverrides: { root: { ...typeStyle('h2'), padding: `${space['space-6']} ${space['space-6']} ${space['space-3']}` } },
+      },
+      MuiDialogContent: {
+        styleOverrides: { root: { padding: `0 ${space['space-6']}` } },
+      },
+      MuiDialogActions: {
+        styleOverrides: { root: { padding: space['space-6'], gap: space['space-2'], '& > :not(style) ~ :not(style)': { marginLeft: 0 } } },
+      },
+
+      /* Alert: standard = tonad yta med färgad text, som badges. Färgen bär aldrig ensam, texten gör det. */
+      MuiAlert: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            ...typeStyle('body'),
+            fontVariantNumeric: 'normal',
+            padding: `${space['space-2']} ${space['space-4']}`,
+            borderRadius: theme.shape.radius.md,
+            variants: (['success', 'info', 'warning', 'error'] as const).flatMap((c) => [
+              {
+                props: { severity: c, variant: 'standard' },
+                style: { backgroundColor: v(theme).palette[c].soft, color: v(theme).palette[c].main },
+              },
+              {
+                props: { severity: c, variant: 'outlined' },
+                style: { backgroundColor: v(theme).palette.background.paper, color: v(theme).palette[c].main, borderColor: v(theme).palette[c].main },
+              },
+              {
+                props: { severity: c, variant: 'filled' },
+                style: { backgroundColor: v(theme).palette[c].main, color: v(theme).palette[c].contrastText },
+              },
+            ]),
+          }),
+          icon: { color: 'inherit !important', opacity: 1 },
+        },
+      },
+      MuiAlertTitle: {
+        styleOverrides: { root: { ...typeStyle('body-strong'), fontVariantNumeric: 'normal', margin: 0 } },
+      },
+
+      /* Tooltip: bläck med vit text, liten text. */
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: ({ theme }) => ({
+            ...typeStyle('small'),
+            fontVariantNumeric: 'normal',
+            padding: `${space['space-1']} ${space['space-2']}`,
+            borderRadius: theme.shape.radius.sm,
+            backgroundColor: v(theme).palette.text.primary,
+            color: v(theme).palette.primary.contrastText,
+          }),
+          arrow: ({ theme }) => ({ color: v(theme).palette.text.primary }),
         },
       },
     },
