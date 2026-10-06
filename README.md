@@ -7,11 +7,14 @@ Bakgrund och avgränsning: [adecla-context#37](https://github.com/ArvidGardebo/a
 
 ## Använda
 
-Paketet installeras från git tills ett register är valt (adecla-context#41):
+Varje release bär det byggda paketet. Installera det via URL tills ett register är
+valt (adecla-context#41):
 
 ```bash
-npm i github:ArvidGardebo/adecla-design#v0.2.0 @mui/material @emotion/react @emotion/styled
+pnpm add https://github.com/ArvidGardebo/adecla-design/releases/download/v0.2.0/adecla-design-0.2.0.tgz
 ```
+
+Kräver `@mui/material`, `@emotion/react`, `@emotion/styled` och `react`.
 
 ```tsx
 import 'adecla-design/fonts'
@@ -68,4 +71,4 @@ npm run build
 1. Höj `version` i `package.json` och skriv ett avsnitt i `CHANGELOG.md`, i samma PR.
 2. Efter merge: `git tag vX.Y.Z && git push origin vX.Y.Z`.
 3. CI kontrollerar att taggen matchar `package.json` och skapar en GitHub-release med
-   changelog-avsnittet.
+   changelog-avsnittet och det byggda paketet (`adecla-design-X.Y.Z.tgz`).
