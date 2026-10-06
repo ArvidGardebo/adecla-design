@@ -183,14 +183,12 @@ function ChartColors() {
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 6 }}>
         <LineChart
           height={260}
-          colors={[...dataColors]}
           xAxis={[{ scaleType: 'point', data: months }]}
           series={series.map((s) => ({ ...s, showMark: false }))}
           grid={{ horizontal: true }}
         />
         <BarChart
           height={260}
-          colors={[...dataColors]}
           xAxis={[{ scaleType: 'band', data: months.slice(0, 5) }]}
           series={series.map((s) => ({ ...s, data: s.data.slice(0, 5) }))}
           grid={{ horizontal: true }}

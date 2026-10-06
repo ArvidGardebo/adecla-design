@@ -11,6 +11,8 @@ minor-version att något kan behöva ändras i apparna.
 - Stilar för TextField, Select, Menu, Dialog, Alert och Tooltip. `info` pekar på `primary`.
 - Chip i varianten `outlined`, och färgen `info`.
 - Showcase-sida: `npm run showcase`.
+- Diagram i `@mui/x-charts` får dataserierna `data-1` … `data-4` från temat
+  (`MuiChartsDataProvider`), utan att varje graf anger färger.
 
 ## 0.1.0
 

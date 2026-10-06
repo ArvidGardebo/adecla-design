@@ -4,6 +4,7 @@
  */
 import { describe, expect, it } from 'vitest'
 import { theme } from '../src/theme.js'
+import { dataColors } from '../src/tokens.js'
 
 function undefinedPaths(value: unknown, path = ''): string[] {
   if (value === undefined) return [path]
@@ -19,5 +20,12 @@ describe('theme', () => {
 
   it('har diagramfärgerna i paletten', () => {
     expect(Object.keys(theme.palette.data)).toEqual(['1', '2', '3', '4'])
+  })
+})
+
+describe('diagram', () => {
+  it('ger @mui/x-charts dataserierna i ordning', () => {
+    const provider = (theme.components as Record<string, { defaultProps?: { colors?: string[] } }>).MuiChartsDataProvider
+    expect(provider.defaultProps?.colors).toEqual([...dataColors])
   })
 })
