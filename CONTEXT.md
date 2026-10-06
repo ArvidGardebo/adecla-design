@@ -33,4 +33,4 @@ En förgrund och en bakgrund som temat sätter ihop. Varje par testas mot WCAG 2
 
 - Egna komponenter (`KeyFigure`, `DataTable`, …), Storybook och mörkt läge.
 - Fondbolagens egna färger. Finansportalen hanterar dem.
-- Typsnittsfilerna. Appen laddar dem.
+- Ikonerna. Ingen ikonuppsättning är vald.
