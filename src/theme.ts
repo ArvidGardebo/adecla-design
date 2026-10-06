@@ -5,7 +5,7 @@
  */
 import { createTheme, type CSSObject, type Theme, type TypographyStyle } from '@mui/material/styles'
 import { createElement } from 'react'
-import { color, fontFamily, radius, shadow, space, typeStyle as tokenTypeStyle, type TypeStyleName } from './tokens.js'
+import { color, dataColors, fontFamily, radius, shadow, space, typeStyle as tokenTypeStyle, type TypeStyleName } from './tokens.js'
 
 /** En textstil som MUI-typografi. */
 const typeStyle = (name: TypeStyleName): TypographyStyle => tokenTypeStyle[name]
@@ -108,6 +108,13 @@ function createAdeclaTheme() {
       button: { ...typeStyle('body'), fontWeight: 500, textTransform: 'none', fontVariantNumeric: 'normal' },
     },
     components: {
+      /*
+       * Diagram i @mui/x-charts tar dataserierna i ordning utan att varje graf anger dem.
+       * x-charts är inget beroende här, så nyckeln saknas i MUI:s typer; spridningen
+       * av ett otypat objekt låter den passera.
+       */
+      ...({ MuiChartsDataProvider: { defaultProps: { colors: [...dataColors] } } } as object),
+
       MuiCssBaseline: {
         styleOverrides: (theme) => ({
           /* Som facits body i bundle.css: body-stilen men utan tnum (den sätts per komponent). */

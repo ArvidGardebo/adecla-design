@@ -10,7 +10,7 @@ Bakgrund och avgränsning: [adecla-context#37](https://github.com/ArvidGardebo/a
 Paketet installeras från git tills ett register är valt (adecla-context#41):
 
 ```bash
-npm i github:ArvidGardebo/adecla-design#v0.1.0 @mui/material @emotion/react @emotion/styled
+npm i github:ArvidGardebo/adecla-design#v0.2.0 @mui/material @emotion/react @emotion/styled
 ```
 
 ```tsx
@@ -62,3 +62,10 @@ npm run showcase
 npm test
 npm run build
 ```
+
+## Släppa en version
+
+1. Höj `version` i `package.json` och skriv ett avsnitt i `CHANGELOG.md`, i samma PR.
+2. Efter merge: `git tag vX.Y.Z && git push origin vX.Y.Z`.
+3. CI kontrollerar att taggen matchar `package.json` och skapar en GitHub-release med
+   changelog-avsnittet.
