@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- En pensel i vitt på primary. Glipan mellan skaft, hylsa och borst är plattan som syns igenom. -->
+  <!-- Lucides "brush" (lucide-static 1.52.0, ISC) i vitt på primary. Strecket är
+       kraftigare än Lucides 2 så att penseln syns i 16 px. -->
   <rect width="32" height="32" rx="8" fill="#404681"/>
-  <g fill="#ffffff" transform="rotate(45 16 16)">
-    <rect x="14.25" y="3" width="3.5" height="10.75" rx="1.75"/>
-    <rect x="13" y="14.75" width="6" height="3.75" rx="0.75"/>
-    <path d="M13 19.5H19V21.5C19 24.4 17.4 26.6 16 28.5C14.6 26.6 13 24.4 13 21.5Z"/>
+  <g transform="translate(6 6) scale(0.8333)" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m11 10 3 3"/>
+    <path d="M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z"/>
+    <path d="M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031"/>
   </g>
 </svg>
