@@ -5,6 +5,7 @@
   "type": "module",
   "sideEffects": [
     "./dist/fonts.js",
+    "./src/fonts.ts",
     "*.css"
   ],
   "main": "./dist/index.js",
