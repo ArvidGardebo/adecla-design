@@ -29,3 +29,37 @@ describe('diagram', () => {
     expect(provider.defaultProps?.colors).toEqual([...dataColors])
   })
 })
+
+/* Läser en styleOverride som MUI gör: anropar den med temat. */
+type Styles = Record<string, unknown>
+const override = (component: string, slot: string): Styles => {
+  const c = (theme.components as Record<string, { styleOverrides?: Record<string, unknown> }>)[component]
+  const s = c?.styleOverrides?.[slot]
+  return (typeof s === 'function' ? s({ theme }) : s) as Styles
+}
+
+describe('fält i fokus', () => {
+  it('visar fokus med ramen, utan outline som korsar etiketten', () => {
+    const root = override('MuiOutlinedInput', 'root')
+    expect(root['&.Mui-focused']).toMatchObject({ outline: 'none' })
+    expect(root['&.Mui-focused .MuiOutlinedInput-notchedOutline']).toMatchObject({ borderWidth: 2 })
+  })
+})
+
+describe('meny', () => {
+  it('markerar valt alternativ med en bock', () => {
+    const item = override('MuiMenuItem', 'root')
+    expect(item['&.Mui-selected::after']).toMatchObject({ content: '""' })
+  })
+})
+
+describe('Autocomplete', () => {
+  it('har samma panel som Select-menyn', () => {
+    expect(override('MuiAutocomplete', 'paper')).toEqual(override('MuiMenu', 'paper'))
+  })
+
+  it('markerar valt alternativ med en bock, som menyn', () => {
+    const option = override('MuiAutocomplete', 'option')
+    expect(option['&[aria-selected="true"]::after']).toEqual(override('MuiMenuItem', 'root')['&.Mui-selected::after'])
+  })
+})

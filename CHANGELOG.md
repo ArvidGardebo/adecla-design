@@ -3,6 +3,20 @@
 Versionerna följer [semver](https://semver.org/lang/sv/). Före 1.0.0 betyder en ny
 minor-version att något kan behöva ändras i apparna.
 
+## Ej släppt
+
+### Ändrat
+
+- Ett fält i fokus visar fokus med sin egen ram, 2px i fokusfärgen. Outlinen som
+  korsade etiketten är borta.
+- Menyer (Select, Menu) är en svävande panel utan kant med `shadow-pop`, inskjutna
+  rader med rundad markering och bock på valt alternativ.
+
+### Tillagt
+
+- Stilar för Autocomplete: samma panel och rader som menyerna, och grupprubriker.
+- README: när man väljer Select och när Autocomplete.
+
 ## 0.2.0
 
 ### Tillagt

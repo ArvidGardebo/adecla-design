@@ -44,6 +44,14 @@ import 'adecla-design/tokens.css'
 `adecla-design/fonts` laddar typsnitten självhostade via Fontsource: Inter (400, 500,
 600, 700) och Bricolage Grotesque (600). Importera den en gång, i appens ingång.
 
+### Select eller Autocomplete
+
+Båda ser likadana ut med temat: samma panel, samma rader och bock på valt alternativ.
+
+- **Select** för korta, fasta listor, ungefär upp till tio val: konto, period, valuta.
+- **Autocomplete** för långa listor eller när man behöver söka: fonder, värdepapper.
+  Ge den `groupBy` när listan har en naturlig indelning, till exempel fondtyp.
+
 ## Showcase
 
 Den levande referensen: tokens och MUI-komponenterna med temat, i alla varianter.

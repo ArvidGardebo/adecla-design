@@ -48,6 +48,36 @@ function createAdeclaTheme() {
   const focusRing: CSSObject = { outline: `2px solid ${color['focus']}`, outlineOffset: 2 }
   const v = (theme: Theme) => theme.vars!
 
+  /* Det som Menu och Autocomplete delar: panelen, raden, valt läge och bocken. */
+  const popupPaper = (theme: Theme): CSSObject => ({
+    marginTop: 6,
+    border: 'none',
+    borderRadius: theme.shape.radius.lg,
+    boxShadow: shadow['shadow-pop'],
+  })
+  const popupOption = (theme: Theme): CSSObject => ({
+    ...typeStyle('body'),
+    fontVariantNumeric: 'normal',
+    /* Höjden kommer från padding: MUI nollställer minHeight på bredare skärmar. */
+    gap: space['space-3'],
+    padding: `${space['space-2']} ${space['space-3']}`,
+    borderRadius: theme.shape.radius.sm,
+  })
+  const popupSelected = (theme: Theme): CSSObject => ({
+    backgroundColor: 'transparent',
+    color: v(theme).palette.primary.main,
+    fontWeight: 500,
+  })
+  const checkmark: CSSObject = {
+    content: '""',
+    marginLeft: 'auto',
+    width: 16,
+    height: 16,
+    flexShrink: 0,
+    backgroundColor: 'currentColor',
+    mask: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat`,
+  }
+
   /** MUI kräver 25 skuggsteg. 1–7 är kort, 8–24 svävar (menyer 8, dialoger 24). */
   const shadows = Array.from({ length: 25 }, (_, i) =>
     i === 0 ? 'none' : i < 8 ? shadow['shadow-card'] : shadow['shadow-pop'],
@@ -363,10 +393,10 @@ function createAdeclaTheme() {
             backgroundColor: v(theme).palette.background.paper,
             '& .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.lineControl },
             '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.text.secondary },
-            '&.Mui-focused': focusRing,
-            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.primary.main, borderWidth: 1 },
+            /* Fokus visas med ramen, som har ett hack för etiketten. En outline skulle korsa etiketten. */
+            '&.Mui-focused': { outline: 'none' },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: color['focus'], borderWidth: 2 },
             '&.Mui-error .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.error.main },
-            '&.Mui-error.Mui-focused': { outlineColor: v(theme).palette.error.main },
             '&.Mui-disabled': { backgroundColor: v(theme).palette.background.sunken },
             '&.Mui-disabled .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.divider },
           }),
@@ -384,22 +414,47 @@ function createAdeclaTheme() {
         },
       },
 
-      /* Menyer (Select, Menu): vit panel, hårlinje, shadow-pop via elevation 8. */
+      /*
+       * Menyer (Select, Menu) och Autocomplete-listan delar utseende: svävande panel utan
+       * kant med shadow-pop, inskjutna rader med rundad markering och bock på valt alternativ.
+       */
       MuiMenu: {
         styleOverrides: {
-          paper: ({ theme }) => ({ marginTop: space['space-1'], border: `1px solid ${v(theme).palette.divider}`, borderRadius: theme.shape.radius.md }),
-          list: { padding: `${space['space-1']} 0` },
+          paper: ({ theme }) => popupPaper(theme),
+          list: { padding: space['space-1'] },
         },
       },
       MuiMenuItem: {
         styleOverrides: {
           root: ({ theme }) => ({
-            ...typeStyle('body'),
-            fontVariantNumeric: 'normal',
-            minHeight: 36,
+            ...popupOption(theme),
+            '&:hover, &.Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+            /* Fokusringen inåt, så att den inte går över raderna intill. */
+            '&.Mui-focusVisible': { outlineOffset: -2 },
+            '&.Mui-selected': popupSelected(theme),
+            '&.Mui-selected:hover, &.Mui-selected.Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+            '&.Mui-selected::after': checkmark,
+          }),
+        },
+      },
+
+      MuiAutocomplete: {
+        styleOverrides: {
+          paper: ({ theme }) => popupPaper(theme),
+          listbox: { padding: space['space-1'] },
+          option: ({ theme }) => ({
+            ...popupOption(theme),
+            '&.Mui-focused, &.Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+            '&[aria-selected="true"]': popupSelected(theme),
+            '&[aria-selected="true"].Mui-focused, &[aria-selected="true"].Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+            '&[aria-selected="true"]::after': checkmark,
+          }),
+          groupLabel: ({ theme }) => ({
+            ...typeStyle('tableHead'),
+            lineHeight: '32px',
+            top: `calc(-1 * ${space['space-1']})`,
             padding: `0 ${space['space-3']}`,
-            '&:hover, &.Mui-focusVisible': { backgroundColor: v(theme).palette.background.hover },
-            '&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+            color: v(theme).palette.text.secondary,
           }),
         },
       },
