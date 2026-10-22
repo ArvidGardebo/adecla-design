@@ -11,7 +11,7 @@ Varje release bär det byggda paketet. Installera det via URL tills ett register
 valt (adecla-context#41):
 
 ```bash
-pnpm add https://github.com/ArvidGardebo/adecla-design/releases/download/v0.2.0/adecla-design-0.2.0.tgz
+pnpm add https://github.com/ArvidGardebo/adecla-design/releases/download/v0.3.0/adecla-design-0.3.0.tgz
 ```
 
 Kräver `@mui/material`, `@emotion/react`, `@emotion/styled` och `react`.
