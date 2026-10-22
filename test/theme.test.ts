@@ -59,7 +59,7 @@ describe('Autocomplete', () => {
   })
 
   it('markerar valt alternativ med en bock, som menyn', () => {
-    const option = override('MuiAutocomplete', 'option')
+    const option = override('MuiAutocomplete', 'listbox')['& .MuiAutocomplete-option'] as Styles
     expect(option['&[aria-selected="true"]::after']).toEqual(override('MuiMenuItem', 'root')['&.Mui-selected::after'])
   })
 })

@@ -50,7 +50,7 @@ function createAdeclaTheme() {
 
   /* Det som Menu och Autocomplete delar: panelen, raden, valt läge och bocken. */
   const popupPaper = (theme: Theme): CSSObject => ({
-    marginTop: 6,
+    marginTop: space['space-1'],
     border: 'none',
     borderRadius: theme.shape.radius.lg,
     boxShadow: shadow['shadow-pop'],
@@ -75,6 +75,7 @@ function createAdeclaTheme() {
     height: 16,
     flexShrink: 0,
     backgroundColor: 'currentColor',
+    /* Masken läser bara alfa; färgen kommer från currentColor ovan. */
     mask: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat`,
   }
 
@@ -438,24 +439,33 @@ function createAdeclaTheme() {
         },
       },
 
+      /*
+       * Radstilarna ligger på listboxen: MUI sätter sina egna radstilar där, och en
+       * override på option hamnar på poppern och förlorar mot dem.
+       */
       MuiAutocomplete: {
         styleOverrides: {
           paper: ({ theme }) => popupPaper(theme),
-          listbox: { padding: space['space-1'] },
-          option: ({ theme }) => ({
-            ...popupOption(theme),
-            '&.Mui-focused, &.Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
-            '&[aria-selected="true"]': popupSelected(theme),
-            '&[aria-selected="true"].Mui-focused, &[aria-selected="true"].Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
-            '&[aria-selected="true"]::after': checkmark,
+          listbox: ({ theme }) => ({
+            padding: space['space-1'],
+            '& .MuiAutocomplete-option': {
+              ...popupOption(theme),
+              '&.Mui-focused, &.Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+              '&.Mui-focusVisible': { ...focusRing, outlineOffset: -2 },
+              '&[aria-selected="true"]': popupSelected(theme),
+              '&[aria-selected="true"].Mui-focused, &[aria-selected="true"].Mui-focusVisible': { backgroundColor: v(theme).palette.primary.soft },
+              '&[aria-selected="true"]::after': checkmark,
+            },
           }),
           groupLabel: ({ theme }) => ({
             ...typeStyle('tableHead'),
-            lineHeight: '32px',
+            lineHeight: 2,
             top: `calc(-1 * ${space['space-1']})`,
             padding: `0 ${space['space-3']}`,
             color: v(theme).palette.text.secondary,
           }),
+          /* Raderna i en grupp linjerar med rubriken i stället för MUI:s indrag. */
+          groupUl: { '& .MuiAutocomplete-option': { paddingLeft: space['space-3'] } },
         },
       },
 
