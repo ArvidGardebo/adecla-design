@@ -6,6 +6,7 @@
 import { useState, type ReactNode } from 'react'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
+import Autocomplete from '@mui/material/Autocomplete'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -259,6 +260,35 @@ function Selects() {
   )
 }
 
+const funds = [
+  { name: 'Adecla Sverige', type: 'Aktiefonder' },
+  { name: 'Adecla Global', type: 'Aktiefonder' },
+  { name: 'Adecla Tillväxtmarknad', type: 'Aktiefonder' },
+  { name: 'Adecla Småbolag', type: 'Aktiefonder' },
+  { name: 'Adecla Kort ränta', type: 'Räntefonder' },
+  { name: 'Adecla Företagsobligation', type: 'Räntefonder' },
+  { name: 'Adecla Balans', type: 'Blandfonder' },
+  { name: 'Adecla Försiktig', type: 'Blandfonder' },
+]
+
+function Autocompletes() {
+  return (
+    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 4 }}>
+      <Autocomplete
+        options={funds}
+        groupBy={(f) => f.type}
+        getOptionLabel={(f) => f.name}
+        defaultValue={funds[1]}
+        renderInput={(params) => <TextField {...params} label="Fond" />}
+      />
+      <Autocomplete
+        options={funds.map((f) => f.name)}
+        renderInput={(params) => <TextField {...params} label="Sök fond" />}
+      />
+    </Box>
+  )
+}
+
 function Chips() {
   return (
     <Stack sx={{ gap: 4 }}>
@@ -431,11 +461,12 @@ export function App() {
         <Section
           id="komponenter"
           title="Komponenter"
-          note="Fält, Select, Dialog, Alert och Tooltip finns inte i referensdesignen. Deras stilar följer referensens README och är inte granskade."
+          note="Fält, Select, Autocomplete, Dialog, Alert och Tooltip finns inte i referensdesignen. Deras stilar följer referensens README och är inte granskade."
         >
           <Panel title="Button"><Buttons /></Panel>
           <Panel title="TextField"><Fields /></Panel>
           <Panel title="Select"><Selects /></Panel>
+          <Panel title="Autocomplete"><Autocompletes /></Panel>
           <Panel title="Chip"><Chips /></Panel>
           <Panel title="Card" meta={<>Senast uppdaterad: 10 sek sedan<Button variant="text" size="small">Anpassa</Button></>}>
             <Typography>När du har pågående ordrar ser du dem här.</Typography>
