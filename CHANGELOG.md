@@ -3,7 +3,7 @@
 Versionerna följer [semver](https://semver.org/lang/sv/). Före 1.0.0 betyder en ny
 minor-version att något kan behöva ändras i apparna.
 
-## Ej släppt
+## 0.3.0
 
 ### Ändrat
 
