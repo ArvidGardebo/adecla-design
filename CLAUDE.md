@@ -1,7 +1,7 @@
 # adecla-design
 
 Adeclas tokens och MUI-theme. Hur paketet används, ändras och släpps står i
-`README.md`, ordförrådet i `CONTEXT.md`.
+`README.md`, ordförrådet i `GLOSSARY.md`.
 
 ## Bevisa att en ändring fungerar
 
