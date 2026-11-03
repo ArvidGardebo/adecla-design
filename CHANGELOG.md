@@ -3,6 +3,15 @@
 Versionerna följer [semver](https://semver.org/lang/sv/). Före 1.0.0 betyder en ny
 minor-version att något kan behöva ändras i apparna.
 
+## Ej släppt
+
+### Ändrat
+
+- Fältens etikett står fast ovanför fältet, i `small` med vikt 500, och flyttar
+  sig inte vid fokus eller ifyllt värde. Ramen har inget hack för etiketten. Fälten
+  blir högre, så formulär i apparna får ny layout.
+- Knappar har `radius-md` (8px) i stället för `radius-pill`.
+
 ## 0.3.0
 
 ### Ändrat

@@ -38,8 +38,29 @@ const override = (component: string, slot: string): Styles => {
   return (typeof s === 'function' ? s({ theme }) : s) as Styles
 }
 
+type DefaultProps = Record<string, unknown>
+const defaults = (component: string): DefaultProps =>
+  ((theme.components as Record<string, { defaultProps?: DefaultProps }>)[component]?.defaultProps ?? {})
+
+describe('knapp', () => {
+  it('har radius-md, inte pill', () => {
+    expect(override('MuiButton', 'root').borderRadius).toBe(theme.shape.radius.md)
+  })
+})
+
+describe('etikett', () => {
+  it('står fast ovanför fältet', () => {
+    expect(defaults('MuiInputLabel')).toMatchObject({ shrink: true })
+    expect(override('MuiInputLabel', 'root')).toMatchObject({ position: 'static', transform: 'none' })
+  })
+
+  it('ger ramen inget hack', () => {
+    expect(defaults('MuiOutlinedInput')).toMatchObject({ notched: false })
+  })
+})
+
 describe('fält i fokus', () => {
-  it('visar fokus med ramen, utan outline som korsar etiketten', () => {
+  it('visar fokus med ramen, inte med en outline', () => {
     const root = override('MuiOutlinedInput', 'root')
     expect(root['&.Mui-focused']).toMatchObject({ outline: 'none' })
     expect(root['&.Mui-focused .MuiOutlinedInput-notchedOutline']).toMatchObject({ borderWidth: 2 })
