@@ -395,13 +395,14 @@ function createAdeclaTheme() {
         },
       },
       MuiOutlinedInput: {
-        defaultProps: { notched: false },
         styleOverrides: {
           root: ({ theme }) => ({
             ...typeStyle('body'),
             borderRadius: theme.shape.radius.md,
             backgroundColor: v(theme).palette.background.paper,
             '& .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.lineControl },
+            /* Select med displayEmpty och shrink i slotProps sätter notched själva, så hacket stängs här. */
+            '& .MuiOutlinedInput-notchedOutline legend': { maxWidth: 0.01, transition: 'none' },
             '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.text.secondary },
             /* Fokus visas med ramen i stället för fokusringen, som andra kontroller har. */
             '&.Mui-focused': { outline: 'none' },

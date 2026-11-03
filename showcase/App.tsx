@@ -245,7 +245,8 @@ function Selects() {
       </FormControl>
       <FormControl error>
         <InputLabel id="period">Period</InputLabel>
-        <Select labelId="period" label="Period" defaultValue="">
+        <Select labelId="period" label="Period" defaultValue="" displayEmpty>
+          <MenuItem value="">Välj period</MenuItem>
           <MenuItem value="1m">1 månad</MenuItem>
           <MenuItem value="1y">1 år</MenuItem>
         </Select>

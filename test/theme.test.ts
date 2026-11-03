@@ -54,8 +54,9 @@ describe('etikett', () => {
     expect(override('MuiInputLabel', 'root')).toMatchObject({ position: 'static', transform: 'none' })
   })
 
-  it('ger ramen inget hack', () => {
-    expect(defaults('MuiOutlinedInput')).toMatchObject({ notched: false })
+  it('ger ramen inget hack, även när MUI ber om ett', () => {
+    const root = override('MuiOutlinedInput', 'root')
+    expect(root['& .MuiOutlinedInput-notchedOutline legend']).toMatchObject({ maxWidth: 0.01 })
   })
 })
 
