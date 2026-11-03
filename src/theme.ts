@@ -180,7 +180,7 @@ function createAdeclaTheme() {
             padding: `0 ${space['space-4']}`,
             gap: space['space-2'],
             border: '1px solid transparent',
-            borderRadius: theme.shape.radius.pill,
+            borderRadius: theme.shape.radius.md,
             whiteSpace: 'nowrap',
             transition: 'background-color .12s, border-color .12s',
             '&.Mui-disabled': { opacity: 0.45 },
@@ -372,14 +372,22 @@ function createAdeclaTheme() {
       /*
        * Fält, meny, dialog, notis och tooltip finns inte i referensen. Stilarna följer
        * dess README: fält har radius-md och line-control-kant, det som svävar har shadow-pop.
+       * Etiketten står fast ovanför fältet och ramen har inget hack för den.
        */
       MuiTextField: { defaultProps: { size: 'small' } },
       MuiFormControl: { defaultProps: { size: 'small' } },
       MuiInputLabel: {
+        defaultProps: { shrink: true },
         styleOverrides: {
           root: ({ theme }) => ({
-            ...typeStyle('body'),
+            ...typeStyle('small'),
             fontVariantNumeric: 'normal',
+            fontWeight: 500,
+            position: 'static',
+            transform: 'none',
+            maxWidth: 'none',
+            marginBottom: space['space-1'],
+            transition: 'color .12s',
             color: v(theme).palette.text.secondary,
             '&.Mui-focused': { color: v(theme).palette.primary.main },
             '&.Mui-error': { color: v(theme).palette.error.main },
@@ -393,8 +401,10 @@ function createAdeclaTheme() {
             borderRadius: theme.shape.radius.md,
             backgroundColor: v(theme).palette.background.paper,
             '& .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.lineControl },
+            /* Select med displayEmpty och shrink i slotProps sätter notched själva, så hacket stängs här. */
+            '& .MuiOutlinedInput-notchedOutline legend': { maxWidth: 0.01, transition: 'none' },
             '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.text.secondary },
-            /* Fokus visas med ramen, som har ett hack för etiketten. En outline skulle korsa etiketten. */
+            /* Fokus visas med ramen i stället för fokusringen, som andra kontroller har. */
             '&.Mui-focused': { outline: 'none' },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: color['focus'], borderWidth: 2 },
             '&.Mui-error .MuiOutlinedInput-notchedOutline': { borderColor: v(theme).palette.error.main },
