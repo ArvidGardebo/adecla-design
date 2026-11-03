@@ -25,6 +25,12 @@ Textfärg. `ink` för innehåll, `ink-muted` för etiketter och metadata.
 En färg för en serie i ett diagram, i fast ordning. Serie 1 är alltid eget innehav.
 _Undvik_: diagramfärg 1, chart color
 
+**Typsnittsfamilj** (`sans`, `serif`, `heading`, `accent`):
+En font-stack som textstilarna pekar på. `heading` är rubrikernas familj, så att
+rubrikerna byter typsnitt på ett ställe. `accent` är Bricolage Grotesque, för enstaka
+uttrycksfulla ytor, aldrig för siffror eller kontroller.
+_Undvik_: display-font (`display` är sidtitelns textstil)
+
 **Kontrastpar**:
 En förgrund och en bakgrund som temat sätter ihop. Varje par testas mot WCAG 2.1 AA:
 4,5:1 för text, 3:1 för kontrollkanter, fokusring och dataserier.

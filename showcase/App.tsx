@@ -38,7 +38,7 @@ import Typography from '@mui/material/Typography'
 import { BarChart } from '@mui/x-charts/BarChart'
 import { LineChart } from '@mui/x-charts/LineChart'
 import source from '../src/tokens.json' with { type: 'json' }
-import { color, dataColors, radius, shadow, space, typeStyle, type ColorName, type TypeStyleName } from '../src/index.js'
+import { color, dataColors, fontFamily, radius, shadow, space, typeStyle, type ColorName, type TypeStyleName } from '../src/index.js'
 
 const usage = (list: { name: string; usage: string }[], name: string) => list.find((t) => t.name === name)?.usage ?? ''
 
@@ -113,6 +113,29 @@ function TypeScale() {
             </TableRow>
           )
         })}
+      </TableBody>
+    </Table>
+  )
+}
+
+function Families() {
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Familj</TableCell>
+          <TableCell>Exempel</TableCell>
+          <TableCell>Stack</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {Object.entries(fontFamily).map(([name, stack]) => (
+          <TableRow key={name}>
+            <TableCell>{name}</TableCell>
+            <TableCell><Box component="span" sx={{ ...typeStyle.h2, fontFamily: stack }}>Min ekonomi</Box></TableCell>
+            <TableCell sx={{ whiteSpace: 'normal' }}>{stack}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   )
@@ -443,6 +466,7 @@ export function App() {
 
         <Section id="typografi" title="Typografi">
           <Panel title="Typskala" flush><TypeScale /></Panel>
+          <Panel title="Familjer" flush><Families /></Panel>
         </Section>
 
         <Section id="form" title="Avstånd, hörn och djup">

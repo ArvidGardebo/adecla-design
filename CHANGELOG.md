@@ -3,6 +3,16 @@
 Versionerna följer [semver](https://semver.org/lang/sv/). Före 1.0.0 betyder en ny
 minor-version att något kan behöva ändras i apparna.
 
+## 0.5.0
+
+### Ändrat
+
+- Rubrikerna (`display`, `h1`, `h2`) läser den nya familjen `heading` i stället för
+  `display`. Den är Bricolage Grotesque som förut, så inget ser annorlunda ut. Ett
+  byte av rubriktypsnitt blir en rad i `src/tokens.json`.
+- Familjen `display` heter `accent` (`fontFamily.accent`, `--ad-font-accent`).
+  `fontFamily.display` och `--ad-font-display` finns inte längre.
+
 ## 0.4.0
 
 ### Ändrat
