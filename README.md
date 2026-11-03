@@ -11,7 +11,7 @@ Varje release bär det byggda paketet. Installera det via URL tills ett register
 valt (adecla-context#41):
 
 ```bash
-pnpm add https://github.com/ArvidGardebo/adecla-design/releases/download/v0.4.0/adecla-design-0.4.0.tgz
+pnpm add https://github.com/ArvidGardebo/adecla-design/releases/download/v0.5.0/adecla-design-0.5.0.tgz
 ```
 
 Kräver `@mui/material`, `@emotion/react`, `@emotion/styled` och `react`.
@@ -43,6 +43,14 @@ import 'adecla-design/tokens.css'
 
 `adecla-design/fonts` laddar typsnitten självhostade via Fontsource: Inter (400, 500,
 600, 700) och Bricolage Grotesque (600). Importera den en gång, i appens ingång.
+
+Rubrikerna (`display`, `h1`, `h2`) läser familjen `heading`. Byts den i
+`src/tokens.json` byter alla rubriker typsnitt. `accent` är Bricolage Grotesque för
+enstaka uttrycksfulla ytor, och finns kvar även om `heading` byter typsnitt:
+
+```tsx
+<Typography variant="display" sx={{ fontFamily: fontFamily.accent }}>Välkommen</Typography>
+```
 
 ### Select eller Autocomplete
 

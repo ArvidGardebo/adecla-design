@@ -4,7 +4,7 @@
  */
 import { describe, expect, it } from 'vitest'
 import { theme } from '../src/theme.js'
-import { dataColors } from '../src/tokens.js'
+import { dataColors, fontFamily } from '../src/tokens.js'
 
 function undefinedPaths(value: unknown, path = ''): string[] {
   if (value === undefined) return [path]
@@ -41,6 +41,12 @@ const override = (component: string, slot: string): Styles => {
 type DefaultProps = Record<string, unknown>
 const defaults = (component: string): DefaultProps =>
   ((theme.components as Record<string, { defaultProps?: DefaultProps }>)[component]?.defaultProps ?? {})
+
+describe('headings', () => {
+  it('read the heading family, so headings change font in one place', () => {
+    for (const v of ['display', 'h1', 'h2'] as const) expect(theme.typography[v].fontFamily).toBe(fontFamily.heading)
+  })
+})
 
 describe('knapp', () => {
   it('har radius-md, inte pill', () => {
