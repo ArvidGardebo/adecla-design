@@ -42,8 +42,8 @@ type DefaultProps = Record<string, unknown>
 const defaults = (component: string): DefaultProps =>
   ((theme.components as Record<string, { defaultProps?: DefaultProps }>)[component]?.defaultProps ?? {})
 
-describe('rubriker', () => {
-  it('läser familjen heading, så att rubrikerna byter typsnitt på ett ställe', () => {
+describe('headings', () => {
+  it('read the heading family, so headings change font in one place', () => {
     for (const v of ['display', 'h1', 'h2'] as const) expect(theme.typography[v].fontFamily).toBe(fontFamily.heading)
   })
 })
