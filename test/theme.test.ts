@@ -54,6 +54,43 @@ describe('knapp', () => {
   })
 })
 
+describe('destructive button', () => {
+  type Variant = { props: Record<string, unknown>; style: Styles }
+  const variants = override('MuiButton', 'root').variants as Variant[]
+  const styleFor = (variant: string) => {
+    const i = variants.findIndex((x) => x.props.variant === variant && x.props.color === 'error')
+    return { style: variants[i]?.style, after: i > variants.findIndex((x) => x.props.variant === variant && !x.props.color) }
+  }
+  const error = theme.vars!.palette.error
+
+  it('is filled with the error color when contained', () => {
+    const { style, after } = styleFor('contained')
+    expect(style).toMatchObject({ backgroundColor: error.main, color: error.contrastText, '&:hover': { backgroundColor: error.dark } })
+    expect(after).toBe(true)
+  })
+
+  it('has error-colored text and border when outlined', () => {
+    const { style, after } = styleFor('outlined')
+    expect(style).toMatchObject({ color: error.main, borderColor: error.main, '&:hover': { backgroundColor: error.soft } })
+    expect(after).toBe(true)
+  })
+
+  it('has error-colored text as text button', () => {
+    const { style, after } = styleFor('text')
+    expect(style).toMatchObject({ color: error.main, '&:hover': { backgroundColor: error.soft } })
+    expect(after).toBe(true)
+  })
+})
+
+describe('chip delete icon', () => {
+  it('sits after the label, not over it', () => {
+    const icon = override('MuiChip', 'deleteIcon')
+    // MUI's default left margin is negative, which pulls the icon over the label.
+    const left = parseFloat(String(icon.margin).split(' ')[3])
+    expect(left).toBeGreaterThan(0)
+  })
+})
+
 describe('etikett', () => {
   it('står fast ovanför fältet', () => {
     expect(defaults('MuiInputLabel')).toMatchObject({ shrink: true })

@@ -234,6 +234,7 @@ function Buttons() {
             <Button variant={variant}>Sätt in pengar</Button>
             <Button variant={variant} size="small">Anpassa</Button>
             <Button variant={variant} disabled>Inaktiv</Button>
+            <Button variant={variant} color="error">Radera</Button>
           </Row>
         </Box>
       ))}
@@ -327,6 +328,8 @@ function Chips() {
             <Chip variant={variant} label="Väntar" color="warning" />
             <Chip variant={variant} label="Avvisad" color="error" />
             {variant === 'filled' && <Chip label="99+" color="alert" />}
+            <Chip variant={variant} label="Månadsrapport" onDelete={() => {}} />
+            <Chip variant={variant} label="Månadsrapport" color="primary" onDelete={() => {}} />
           </Row>
         </Box>
       ))}

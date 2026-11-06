@@ -3,6 +3,19 @@
 Versionerna följer [semver](https://semver.org/lang/sv/). Före 1.0.0 betyder en ny
 minor-version att något kan behöva ändras i apparna.
 
+## 0.6.0
+
+### Ändrat
+
+- En knapp med `color="error"` syns som destruktiv: fylld i `negative` med
+  `on-primary`, eller med text och ram i `negative`. Förut såg den ut som en
+  vanlig knapp.
+- Chipets ta bort-kryss ligger efter texten i stället för över sista bokstaven.
+
+### Tillagt
+
+- Tokens `negative-hover` och `negative-pressed` för den fyllda destruktiva knappen.
+
 ## 0.5.0
 
 ### Ändrat
