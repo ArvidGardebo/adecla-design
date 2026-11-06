@@ -85,7 +85,9 @@ describe('destructive button', () => {
 describe('chip delete icon', () => {
   it('sits after the label, not over it', () => {
     const icon = override('MuiChip', 'deleteIcon')
-    expect(icon.margin).toMatch(/^0 \S+ 0 \d/)
+    // MUI's default left margin is negative, which pulls the icon over the label.
+    const left = parseFloat(String(icon.margin).split(' ')[3])
+    expect(left).toBeGreaterThan(0)
   })
 })
 

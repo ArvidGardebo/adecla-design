@@ -298,7 +298,7 @@ function createAdeclaTheme() {
             fontSize: 14,
             color: 'inherit',
             opacity: 0.7,
-            '&:hover': { color: 'inherit', opacity: 1 },
+            '&:hover, &:active': { color: 'inherit', opacity: 1 },
           },
         },
       },
