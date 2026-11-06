@@ -98,7 +98,13 @@ function createAdeclaTheme() {
             contrastText: color['on-primary'],
           },
           success: { main: color['positive'], soft: color['positive-soft'], contrastText: color['on-primary'] },
-          error: { main: color['negative'], soft: color['negative-soft'], contrastText: color['on-primary'] },
+          error: {
+            main: color['negative'],
+            dark: color['negative-hover'],
+            pressed: color['negative-pressed'],
+            soft: color['negative-soft'],
+            contrastText: color['on-primary'],
+          },
           warning: { main: color['warning'], soft: color['warning-soft'], contrastText: color['on-primary'] },
           /* Info har ingen egen färg: primary är systemets neutrala markering. */
           info: { main: color['primary'], soft: color['primary-soft'], contrastText: color['on-primary'] },
@@ -213,6 +219,34 @@ function createAdeclaTheme() {
                   '&.Mui-disabled': { color: v(theme).palette.primary.main },
                 },
               },
+              /* Destruktiv knapp: color="error". Efter varianterna ovan, så att färgen vinner. */
+              {
+                props: { variant: 'contained', color: 'error' },
+                style: {
+                  backgroundColor: v(theme).palette.error.main,
+                  color: v(theme).palette.error.contrastText,
+                  '&:hover': { backgroundColor: v(theme).palette.error.dark },
+                  '&:active': { backgroundColor: v(theme).palette.error.pressed },
+                  '&.Mui-disabled': { backgroundColor: v(theme).palette.error.main, color: v(theme).palette.error.contrastText },
+                },
+              },
+              {
+                props: { variant: 'outlined', color: 'error' },
+                style: {
+                  color: v(theme).palette.error.main,
+                  borderColor: v(theme).palette.error.main,
+                  '&:hover': { backgroundColor: v(theme).palette.error.soft, borderColor: v(theme).palette.error.main },
+                  '&.Mui-disabled': { color: v(theme).palette.error.main, borderColor: v(theme).palette.error.main },
+                },
+              },
+              {
+                props: { variant: 'text', color: 'error' },
+                style: {
+                  color: v(theme).palette.error.main,
+                  '&:hover': { backgroundColor: v(theme).palette.error.soft },
+                  '&.Mui-disabled': { color: v(theme).palette.error.main },
+                },
+              },
               {
                 props: { size: 'small' },
                 style: { height: 28, padding: `0 ${space['space-3']}`, fontSize: typeStyle('small').fontSize },
@@ -258,6 +292,14 @@ function createAdeclaTheme() {
             ],
           }),
           label: { padding: 0 },
+          /* MUI:s marginaler är gjorda för en högre chip och lägger krysset över texten. */
+          deleteIcon: {
+            margin: `0 -2px 0 ${space['space-1']}`,
+            fontSize: 14,
+            color: 'inherit',
+            opacity: 0.7,
+            '&:hover': { color: 'inherit', opacity: 1 },
+          },
         },
       },
 
